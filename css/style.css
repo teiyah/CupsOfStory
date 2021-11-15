@@ -1,20 +1,12 @@
-a.back-to-top {
+a.bottom-links {
   text-decoration: none;
   color: #545454;
 }
 
-a.back-to-top:hover {
+a.bottom-links:hover {
   color: #737373;
 }
 
-a.to-bottom {
-  text-decoration: none;
-  color: #545454;
-}
-
-a.to-bottom:hover {
-  color: #737373;
-}
 
 .nav-links {
   text-decoration: none;
