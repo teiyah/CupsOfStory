@@ -7,6 +7,16 @@ a.back-to-top:hover {
   color: #737373;
 }
 
+a.to-bottom {
+  margin-right: 1.5vw;
+  text-decoration: none;
+  color: #545454;
+}
+
+a.to-bottom:hover {
+  color: #737373;
+}
+
 .nav-links {
   text-decoration: none;
 }
