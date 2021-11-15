@@ -1,3 +1,8 @@
+a {
+  text-decoration: none;
+  color: #545454;
+}
+
 a.bottom-links {
   text-decoration: none;
   color: #545454;
@@ -6,7 +11,6 @@ a.bottom-links {
 a.bottom-links:hover {
   color: #737373;
 }
-
 
 .nav-links {
   text-decoration: none;
