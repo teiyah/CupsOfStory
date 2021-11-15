@@ -17,6 +17,10 @@ a.top-link:hover {
   color: #737373;
 }
 
+.story-card {
+  text-decoration: none;
+}
+
 .nav-links {
   text-decoration: none;
 }
