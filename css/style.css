@@ -1,14 +1,19 @@
-a {
+a.bottom-link {
+  text-decoration: none;
+  color: #545454;
+  margin-right: 1.5vw;
+}
+
+a.bottom-link:hover {
+  color: #737373;
+}
+
+a.top-link {
   text-decoration: none;
   color: #545454;
 }
 
-a.bottom-links {
-  text-decoration: none;
-  color: #545454;
-}
-
-a.bottom-links:hover {
+a.top-link:hover {
   color: #737373;
 }
 
