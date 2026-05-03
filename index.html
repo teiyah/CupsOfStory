@@ -217,10 +217,12 @@
               <div class="modal-footer">
                 <small class="text-muted me-auto">${wordLabel}</small>
                 ${isLast
-                  ? `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`
-                  : `<button type="button" class="btn btn-secondary next-story-btn"
+                  ? `<button type="button" class="btn next-story-btn" data-bs-dismiss="modal"
+                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;">Close</button>`
+                  : `<button type="button" class="btn next-story-btn"
                       data-bs-dismiss="modal"
-                      data-next="#${nextCosId}">Next Story →</button>`
+                      data-next="#${nextCosId}"
+                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;">Next Story →</button>`
                 }
               </div>
             </div>
