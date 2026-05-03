@@ -50,11 +50,13 @@
     <div class="container">
       <div class="row">
 
+        <!-- Index links (auto-generated) -->
         <div class="col-sm-4 py-4">
           <h4 class="text-white">Index</h4>
           <ul class="list-unstyled" id="nav-index"></ul>
         </div>
 
+        <!-- Contact -->
         <div class="col-sm-4 py-4">
           <h4 class="text-white">Contact</h4>
           <ul class="list-unstyled">
@@ -110,6 +112,7 @@
   <div class="container text-center">
     <p class="mb-1">© Cups of Story</p>
     <small>
+      <a href="rules-and-regulations.html" class="text-muted me-3">Rules &amp; Regulations</a>
       <a href="https://www.instagram.com/cupsofstory/" target="_blank" class="text-muted">
         <i class="fab fa-instagram"></i> Instagram
       </a>
@@ -127,6 +130,7 @@
     const modalContainer = document.getElementById('modal-container');
     const navIndex = document.getElementById('nav-index');
 
+    // Build nav index in groups of ~10
     const groupSize = 10;
     const navRow = document.createElement('div');
     navRow.className = 'row';
@@ -141,11 +145,18 @@
     }
     navIndex.appendChild(navRow);
 
+    // Build cards + modals
     stories.forEach((story, index) => {
       const cosId = `cos${story.id}`;
       const isGroupStart = index % groupSize === 0;
+
+      // Determine label text color based on darkness of background
+      const labelColor = story.textColor;
+
+      // Word count label
       const wordLabel = story.wordCount ? `${story.wordCount} words` : '';
 
+      // Card HTML
       const cardCol = document.createElement('div');
       cardCol.className = 'col';
       if (isGroupStart) cardCol.id = `cos-${story.id}`;
@@ -159,7 +170,7 @@
               xmlns="http://www.w3.org/2000/svg">
               <title>COS ${story.id}</title>
               <rect width="100%" height="100%" fill="${story.backgroundColor}" />
-              <text x="50%" y="50%" fill="${story.textColor}" dy=".3em"
+              <text x="50%" y="50%" fill="${labelColor}" dy=".3em"
                 font-family="inherit" font-size="16" text-anchor="middle">
                 COS ${story.id}
               </text>
@@ -178,11 +189,18 @@
       `;
       grid.appendChild(cardCol);
 
+      // Format story text: split on \n\n for paragraphs, \n for line breaks
       const formattedText = story.text
         .split('\n\n')
         .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
         .join('');
 
+      // Stories array is newest→oldest, so "next" for reading order is the previous index
+      const nextStory = stories[index - 1];
+      const isLast = index === 0; // index 0 is the newest story — it gets Close
+      const nextCosId = nextStory ? `cos${nextStory.id}` : null;
+
+      // Modal HTML
       const modalDiv = document.createElement('div');
       modalDiv.innerHTML = `
         <div class="modal fade" id="${cosId}" tabindex="-1"
@@ -198,7 +216,12 @@
               <div class="modal-body">${formattedText}</div>
               <div class="modal-footer">
                 <small class="text-muted me-auto">${wordLabel}</small>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                ${isLast
+                  ? `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`
+                  : `<button type="button" class="btn btn-secondary next-story-btn"
+                      data-bs-dismiss="modal"
+                      data-next="#${nextCosId}">Next Story →</button>`
+                }
               </div>
             </div>
           </div>
@@ -208,11 +231,31 @@
     });
   }
 
+  // Handle "Next Story" button — open next modal after current one fully closes
+  document.getElementById('modal-container').addEventListener('click', function(e) {
+    const btn = e.target.closest('.next-story-btn');
+    if (!btn) return;
+    const nextTarget = btn.getAttribute('data-next');
+    // Wait for current modal to finish closing, then open next
+    document.addEventListener('hidden.bs.modal', function handler() {
+      document.removeEventListener('hidden.bs.modal', handler);
+      const nextModalEl = document.querySelector(nextTarget);
+      if (nextModalEl) {
+        // Scroll next modal body to top
+        const body = nextModalEl.querySelector('.modal-body');
+        if (body) body.scrollTop = 0;
+        new bootstrap.Modal(nextModalEl).show();
+      }
+    });
+  });
+
+  // Helper: is the hex color dark? (to decide btn-close filter)
   function isDark(hex) {
     const c = hex.replace('#', '');
     const r = parseInt(c.substring(0, 2), 16);
     const g = parseInt(c.substring(2, 4), 16);
     const b = parseInt(c.substring(4, 6), 16);
+    // Perceived luminance
     return (r * 0.299 + g * 0.587 + b * 0.114) < 140;
   }
 
