@@ -117,7 +117,7 @@
     /* ===== CARDS GRID ===== */
     .album {
       background-color: #1C1408 !important;
-      padding: 1.1rem 0 3rem;
+      padding: 0.95rem 0 3rem;
     }
 
     /* ===== TILE ===== */
@@ -148,6 +148,13 @@
       display: block;
       height: 210px;
       overflow: hidden;
+      flex-shrink: 0;
+    }
+    .tile-wrapper svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
     }
     .tile-cos-label {
       position: absolute;
@@ -199,7 +206,7 @@
       line-height: 1.75;
       padding: 0.5rem 1.25rem 1rem;
     }
-    .modal-body p { margin-bottom: 1rem; }
+    .modal-body p { margin-bottom: 1.4em; }
     .modal-footer {
       border-top: none;
       padding: 0.5rem 1.25rem 1rem;
@@ -310,26 +317,27 @@
       const wordLabel = story.wordCount ? `${story.wordCount} words` : '';
 
       // ── Opening line preview ──
-      // Take the raw first line, cut at the first comma/full-stop after char 30,
-      // or at the last word boundary before char 60 if no punctuation found.
+      // Hard limit: 45 chars, cut at nearest complete word,
+      // never end on a weak word (preposition/article/conjunction).
+      const WEAK = new Set(['in','the','a','an','my','of','and','for','or','but',
+                            'on','at','to','by','as','if','so','up','it','its',
+                            'is','was','be','no','not','with','from','into','over',
+                            'that','this','these','those','then','than','when',
+                            'which','who','how','her','his','their','our','your']);
       const rawLine = story.text.split('\n')[0];
       let preview = rawLine;
-      if (preview.length > 60) {
-        // Look for comma or full stop between char 30 and 60
-        let cutAt = -1;
-        for (let ci = 30; ci <= Math.min(60, preview.length - 1); ci++) {
-          if (preview[ci] === '.' || preview[ci] === ',') {
-            cutAt = ci + 1; // include the punctuation
-            break;
-          }
-        }
-        if (cutAt === -1) {
-          // No punctuation — cut at last space before char 60
-          cutAt = 60;
-          while (cutAt > 30 && preview[cutAt] !== ' ') cutAt--;
-        }
-        preview = preview.substring(0, cutAt).trim();
+      if (preview.length > 45) {
+        // Walk back from char 45 to nearest space
+        let cut = 45;
+        while (cut > 0 && preview[cut] !== ' ') cut--;
+        preview = preview.substring(0, cut).trim();
       }
+      // Remove trailing weak words
+      let words = preview.split(' ');
+      while (words.length > 1 && WEAK.has(words[words.length - 1].toLowerCase().replace(/[^a-z]/g, ''))) {
+        words.pop();
+      }
+      preview = words.join(' ');
 
       // ── SVG text layout ──
       // Split preview at a word boundary near char 30 for two centred lines
