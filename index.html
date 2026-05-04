@@ -265,20 +265,24 @@
 
       const wordLabel = story.wordCount ? `${story.wordCount} words` : '';
 
-      // Opening line — first line, no ellipsis, capped at 72 chars cleanly
+      // Opening line — exact text from story, split at word boundary near char 38
       const rawLine = story.text.split('\n')[0];
-      const openingLine = rawLine.length > 72 ? rawLine.substring(0, 72) : rawLine;
 
-      // SVG text: wrap into two tspan lines if long
-      const words = openingLine.split(' ');
-      let line1 = '', line2 = '';
-      for (const w of words) {
-        if ((line1 + ' ' + w).trim().length <= 38) {
-          line1 = (line1 + ' ' + w).trim();
-        } else {
-          line2 = (line2 + ' ' + w).trim();
-        }
+      // Find the last space at or before char 38 to make line1
+      let splitAt = 38;
+      if (rawLine.length > 38) {
+        // Walk back to nearest space
+        while (splitAt > 0 && rawLine[splitAt] !== ' ') splitAt--;
       }
+      const line1 = rawLine.substring(0, splitAt || rawLine.length).trim();
+      const rest  = rawLine.substring(splitAt).trim();
+      // line2: up to next 42 chars, ending at word boundary
+      let line2end = Math.min(rest.length, 42);
+      if (line2end < rest.length) {
+        while (line2end > 0 && rest[line2end] !== ' ') line2end--;
+      }
+      const line2 = rest.substring(0, line2end).trim();
+
       const svgText = line2
         ? `<tspan x="50%" dy="-0.6em">${line1}</tspan><tspan x="50%" dy="1.4em">${line2}</tspan>`
         : `<tspan x="50%" dy="0">${line1}</tspan>`;
