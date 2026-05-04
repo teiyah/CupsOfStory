@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cups of Story</title>
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSCFV12XM"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,20 +13,11 @@
     gtag('config', 'G-LRSCFV12XM');
   </script>
 
-  <!-- Favicon -->
   <link rel="icon" href="images/cosLogo.png">
-
-  <!-- Google Fonts: Cormorant Garamond -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/26e7e163d1.js" crossorigin="anonymous"></script>
-
-  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 
   <style>
@@ -39,7 +29,7 @@
       margin: 0;
     }
 
-    /* ===== TOP NAV BAR ===== */
+    /* ===== TOP NAV ===== */
     .top-nav {
       background-color: #1C1408;
       border-bottom: 1px solid #2e2a1e;
@@ -49,7 +39,6 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 2rem;
     }
     .top-nav a {
       color: #9a8e78;
@@ -58,28 +47,32 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .top-nav a:hover {
-      color: #E8E0D0;
+    .top-nav a:hover { color: #E8E0D0; }
+    /* Index dropdown */
+    .top-nav .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
     }
-    /* Index dropdown trigger */
-    .top-nav .index-toggle {
+    .index-toggle {
       cursor: pointer;
+      color: #9a8e78;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       position: relative;
     }
-    .top-nav .index-toggle:hover {
-      color: #E8E0D0;
-    }
-    /* Index dropdown panel */
+    .index-toggle:hover { color: #E8E0D0; }
     #indexDropdown {
       display: none;
       position: absolute;
-      top: 100%;
+      top: calc(100% + 0.6rem);
       right: 0;
       background-color: #1C1408;
       border: 1px solid #2e2a1e;
-      padding: 1rem 1.5rem;
+      padding: 0.75rem 1.25rem;
       z-index: 999;
-      min-width: 200px;
+      min-width: 180px;
     }
     #indexDropdown.open { display: block; }
     #indexDropdown a {
@@ -88,13 +81,14 @@
       text-decoration: none;
       font-size: 0.78rem;
       letter-spacing: 0.05em;
+      text-transform: none;
       padding: 0.2rem 0;
     }
     #indexDropdown a:hover { color: #E8E0D0; }
 
     /* ===== HERO ===== */
     .hero-section {
-      padding: 2.5rem 1rem 1rem;
+      padding: 2rem 1rem 0.7rem;
       text-align: center;
     }
     .hero-section h1 {
@@ -122,7 +116,7 @@
     /* ===== CARDS GRID ===== */
     .album {
       background-color: #1C1408 !important;
-      padding: 1.5rem 0 3rem;
+      padding: 1.1rem 0 3rem;
     }
 
     /* ===== TILE ===== */
@@ -130,20 +124,22 @@
       cursor: pointer;
       display: block;
       text-decoration: none;
-      background-color: #404038;
       border-radius: 0;
       border: none;
+      outline: none;
       overflow: hidden;
       transition: opacity 0.2s ease;
+      height: 210px;
+      width: 100%;
     }
-    .story-card-tile:hover {
-      opacity: 0.82;
-    }
-    /* Coloured SVG block */
+    .story-card-tile:hover { opacity: 0.82; }
     .story-card-tile svg {
       display: block;
+      width: 100%;
+      height: 100%;
     }
-    /* Opening line text inside SVG handled inline */
+    /* Remove bootstrap card shadow/border from col */
+    .col > a { box-shadow: none !important; }
 
     /* ===== FOOTER ===== */
     footer {
@@ -152,31 +148,56 @@
       color: #5a5040;
       padding: 1.5rem 0;
     }
-    footer a {
-      color: #9a8e78;
-      text-decoration: none;
-    }
+    footer a { color: #9a8e78; text-decoration: none; }
     footer a:hover { color: #E8E0D0; }
 
     /* ===== MODAL ===== */
     .modal-content {
-      background-color: #1e1a10;
-      border: 1px solid #2e2a1e;
       border-radius: 0;
+      border: none;
+    }
+    .modal-header {
+      border-bottom: none;
+      padding: 1rem 1.25rem 0.5rem;
+    }
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #C9A84C;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .btn-close {
+      width: 0.6em;
+      height: 0.6em;
+      opacity: 0.4;
     }
     .modal-body {
       color: #E8E0D0;
       line-height: 1.75;
+      padding: 0.5rem 1.25rem 1rem;
     }
-    .modal-body p {
-      margin-bottom: 1rem;
-    }
+    .modal-body p { margin-bottom: 1rem; }
     .modal-footer {
-      border-top: 1px solid #2e2a1e;
-      background-color: #1e1a10;
+      border-top: none;
+      padding: 0.5rem 1.25rem 1rem;
+      justify-content: flex-end;
     }
-    .modal-header {
-      border-bottom: none;
+    /* Next/Close as plain text link — no box */
+    .next-story-btn {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      color: #C9A84C !important;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .next-story-btn:hover {
+      color: #E8E0D0 !important;
     }
   </style>
 </head>
@@ -186,10 +207,15 @@
 <!-- ===== TOP NAV ===== -->
 <nav class="top-nav">
   <div class="container" style="position:relative;">
-    <div class="index-toggle" id="indexToggle">Index ▾</div>
-    <a href="https://www.instagram.com/cupsofstory/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-    <div id="indexDropdown">
-      <div id="nav-index-links"></div>
+    <div class="nav-links">
+      <div class="index-toggle" id="indexToggle">Index ▾
+        <div id="indexDropdown">
+          <div id="nav-index-links"></div>
+        </div>
+      </div>
+      <a href="https://www.instagram.com/cupsofstory/" target="_blank">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
     </div>
   </div>
 </nav>
@@ -218,7 +244,7 @@
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="container text-center">
-    <p class="mb-1" style="color:#5a5040; font-size:0.8rem;">© Cups of Story</p>
+    <p class="mb-1" style="font-size:0.8rem;">© Cups of Story</p>
     <small>
       <a href="https://www.instagram.com/cupsofstory/" target="_blank">
         <i class="fab fa-instagram"></i> Instagram
@@ -246,7 +272,7 @@
     const modalContainer = document.getElementById('modal-container');
     const navLinks = document.getElementById('nav-index-links');
 
-    // Build nav index in groups of ~10
+    // Build nav index in groups of 10
     const groupSize = 10;
     for (let i = 0; i < stories.length; i += groupSize) {
       const first = stories[i].id;
@@ -258,49 +284,67 @@
       navLinks.appendChild(a);
     }
 
-    // Build cards + modals
     stories.forEach((story, index) => {
       const cosId = `cos${story.id}`;
-      const isGroupStart = index % groupSize === 0;
-
       const wordLabel = story.wordCount ? `${story.wordCount} words` : '';
 
-      // Opening line — exact text from story, split at word boundary near char 38
+      // ── Opening line preview ──
+      // Take the raw first line, cut at the first comma/full-stop after char 30,
+      // or at the last word boundary before char 60 if no punctuation found.
       const rawLine = story.text.split('\n')[0];
-
-      // Find the last space at or before char 38 to make line1
-      let splitAt = 38;
-      if (rawLine.length > 38) {
-        // Walk back to nearest space
-        while (splitAt > 0 && rawLine[splitAt] !== ' ') splitAt--;
+      let preview = rawLine;
+      if (preview.length > 60) {
+        // Look for comma or full stop between char 30 and 60
+        let cutAt = -1;
+        for (let ci = 30; ci <= Math.min(60, preview.length - 1); ci++) {
+          if (preview[ci] === '.' || preview[ci] === ',') {
+            cutAt = ci + 1; // include the punctuation
+            break;
+          }
+        }
+        if (cutAt === -1) {
+          // No punctuation — cut at last space before char 60
+          cutAt = 60;
+          while (cutAt > 30 && preview[cutAt] !== ' ') cutAt--;
+        }
+        preview = preview.substring(0, cutAt).trim();
       }
-      const line1 = rawLine.substring(0, splitAt || rawLine.length).trim();
-      const rest  = rawLine.substring(splitAt).trim();
-      // line2: up to next 42 chars, ending at word boundary
-      let line2end = Math.min(rest.length, 42);
-      if (line2end < rest.length) {
-        while (line2end > 0 && rest[line2end] !== ' ') line2end--;
+
+      // ── SVG text layout ──
+      // Split preview at a word boundary near char 30 for two centred lines
+      let split = 30;
+      if (preview.length > 30) {
+        while (split > 0 && preview[split] !== ' ') split--;
       }
-      const line2 = rest.substring(0, line2end).trim();
+      const svgLine1 = preview.substring(0, split || preview.length).trim();
+      const svgLine2 = split ? preview.substring(split).trim() : '';
 
-      const svgText = line2
-        ? `<tspan x="50%" dy="-0.6em">${line1}</tspan><tspan x="50%" dy="1.4em">${line2}</tspan>`
-        : `<tspan x="50%" dy="0">${line1}</tspan>`;
+      const svgText = svgLine2
+        ? `<tspan x="50%" dy="-0.7em">${svgLine1}</tspan><tspan x="50%" dy="1.5em">${svgLine2}</tspan>`
+        : `<tspan x="50%" dy="0.3em">${svgLine1}</tspan>`;
 
-      // Card
+      // ── Card ──
       const cardCol = document.createElement('div');
       cardCol.className = 'col';
+      const isGroupStart = index % groupSize === 0;
       if (isGroupStart) cardCol.id = `cos-${story.id}`;
 
       cardCol.innerHTML = `
         <a class="story-card-tile" data-bs-toggle="modal" data-bs-target="#${cosId}">
-          <svg class="bd-placeholder-img" width="100%" height="210"
-            role="img" aria-label="COS ${story.id}"
-            preserveAspectRatio="xMidYMid slice" focusable="false"
+          <svg width="100%" height="210" viewBox="0 0 400 210"
+            preserveAspectRatio="xMidYMid slice"
             xmlns="http://www.w3.org/2000/svg">
             <rect width="100%" height="100%" fill="${story.backgroundColor}" />
-            <text x="50%" y="50%" fill="${story.textColor}"
-              font-family="Georgia, serif" font-size="13.5" text-anchor="middle"
+            <!-- COS number — subtle, bottom-left -->
+            <text x="12" y="194"
+              fill="${story.textColor}" fill-opacity="0.45"
+              font-family="Georgia, serif" font-size="10"
+              letter-spacing="0.08em">COS ${story.id}</text>
+            <!-- Opening line — centred, prominent -->
+            <text x="50%" y="50%"
+              fill="${story.textColor}"
+              font-family="Georgia, serif" font-size="14.5"
+              text-anchor="middle" dominant-baseline="middle"
               font-weight="normal">
               ${svgText}
             </text>
@@ -309,37 +353,35 @@
       `;
       grid.appendChild(cardCol);
 
-      // Format story text
+      // ── Format story body ──
       const formattedText = story.text
         .split('\n\n')
         .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
         .join('');
 
-      // Next story: array is newest→oldest, reading is oldest→newest
+      // ── Next story logic (reading: oldest → newest) ──
       const nextStory = stories[index - 1];
       const isLast = index === 0;
       const nextCosId = nextStory ? `cos${nextStory.id}` : null;
 
+      // ── Modal ──
       const modalDiv = document.createElement('div');
       modalDiv.innerHTML = `
-        <div class="modal fade" id="${cosId}" tabindex="-1"
-          aria-labelledby="${cosId}Label" aria-hidden="true">
+        <div class="modal fade" id="${cosId}" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header" style="background-color:${story.backgroundColor};">
-                <h5 class="modal-title" style="color:${story.textColor}; font-family:'Cormorant Garamond',serif; font-weight:600;">COS ${story.id}</h5>
+            <div class="modal-content" style="background-color:${story.backgroundColor};">
+              <div class="modal-header">
+                <span class="modal-title">COS ${story.id}</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                  aria-label="Close" style="filter:${isDark(story.backgroundColor) ? 'invert(1)' : 'none'};"></button>
+                  aria-label="Close"
+                  style="filter:${isDark(story.backgroundColor) ? 'invert(1)' : 'none'}; opacity:0.35; transform:scale(0.75);"></button>
               </div>
               <div class="modal-body">${formattedText}</div>
               <div class="modal-footer">
-                <small style="color:#5a5040; margin-right:auto;">${wordLabel}</small>
+                <small style="color:${story.textColor}; opacity:0.4; margin-right:auto;">${wordLabel}</small>
                 ${isLast
-                  ? `<button type="button" class="btn next-story-btn" data-bs-dismiss="modal"
-                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;border-radius:0;">Close</button>`
-                  : `<button type="button" class="btn next-story-btn"
-                      data-bs-dismiss="modal" data-next="#${nextCosId}"
-                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;border-radius:0;">Next Story →</button>`
+                  ? `<button type="button" class="next-story-btn" data-bs-dismiss="modal">Close</button>`
+                  : `<button type="button" class="next-story-btn" data-bs-dismiss="modal" data-next="#${nextCosId}">Next Story →</button>`
                 }
               </div>
             </div>
@@ -350,7 +392,7 @@
     });
   }
 
-  // Next Story button handler
+  // Next Story handler
   document.getElementById('modal-container').addEventListener('click', function(e) {
     const btn = e.target.closest('.next-story-btn');
     if (!btn) return;
