@@ -142,6 +142,26 @@
     /* Remove bootstrap card shadow/border from col */
     .col > a { box-shadow: none !important; }
 
+    /* COS number overlay — HTML not SVG, so it never clips */
+    .tile-wrapper {
+      position: relative;
+      display: block;
+      height: 210px;
+      overflow: hidden;
+    }
+    .tile-cos-label {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-family: Georgia, serif;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      opacity: 0.5;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
     /* ===== FOOTER ===== */
     footer {
       background-color: #1C1408;
@@ -331,18 +351,12 @@
       if (isGroupStart) cardCol.id = `cos-${story.id}`;
 
       cardCol.innerHTML = `
-        <a class="story-card-tile" data-bs-toggle="modal" data-bs-target="#${cosId}">
-          <svg width="100%" height="210" viewBox="0 0 400 210"
+        <div class="tile-wrapper" data-bs-toggle="modal" data-bs-target="#${cosId}" style="cursor:pointer;">
+          <span class="tile-cos-label" style="color:${story.textColor};">COS ${story.id}</span>
+          <svg class="story-card-tile" width="100%" height="210" viewBox="0 0 400 210"
             preserveAspectRatio="xMidYMid slice"
             xmlns="http://www.w3.org/2000/svg">
             <rect width="100%" height="100%" fill="${story.backgroundColor}" />
-            <!-- COS number — bottom-right, text-anchor end so never clips -->
-            <text x="386" y="196"
-              fill="${story.textColor}" fill-opacity="0.5"
-              font-family="Georgia, serif" font-size="11"
-              text-anchor="end"
-              letter-spacing="0.06em">COS ${story.id}</text>
-            <!-- Opening line — centred, prominent -->
             <text x="50%" y="50%"
               fill="${story.textColor}"
               font-family="Georgia, serif" font-size="14.5"
@@ -351,7 +365,7 @@
               ${svgText}
             </text>
           </svg>
-        </a>
+        </div>
       `;
       grid.appendChild(cardCol);
 
