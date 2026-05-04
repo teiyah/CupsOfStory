@@ -17,6 +17,9 @@
   <!-- Favicon -->
   <link rel="icon" href="images/cosLogo.png">
 
+  <!-- Google Fonts: Cormorant Garamond -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/26e7e163d1.js" crossorigin="anonymous"></script>
 
@@ -28,156 +31,181 @@
   <link rel="stylesheet" href="css/style.css">
 
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      background-color: #353530;
-      color: #e8d9b0;
+      background-color: #1C1408;
+      color: #E8E0D0;
+      margin: 0;
     }
-    /* Navbar */
-    .navbar {
-      background-color: #353530 !important;
-      border-bottom: 1px solid #4a4a44;
+
+    /* ===== TOP NAV BAR ===== */
+    .top-nav {
+      background-color: #1C1408;
+      border-bottom: 1px solid #2e2a1e;
+      padding: 0.6rem 0;
     }
-    .navbar-toggler {
-      border-color: #e8d9b0;
+    .top-nav .container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 2rem;
     }
-    .navbar-toggler-icon {
-      filter: invert(1);
+    .top-nav a {
+      color: #9a8e78;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
-    /* Collapsed nav panel */
-    #navbarHeader {
-      background-color: #2a2a26 !important;
+    .top-nav a:hover {
+      color: #E8E0D0;
     }
-    /* Hero */
+    /* Index dropdown trigger */
+    .top-nav .index-toggle {
+      cursor: pointer;
+      position: relative;
+    }
+    .top-nav .index-toggle:hover {
+      color: #E8E0D0;
+    }
+    /* Index dropdown panel */
+    #indexDropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #1C1408;
+      border: 1px solid #2e2a1e;
+      padding: 1rem 1.5rem;
+      z-index: 999;
+      min-width: 200px;
+    }
+    #indexDropdown.open { display: block; }
+    #indexDropdown a {
+      display: block;
+      color: #9a8e78;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0;
+    }
+    #indexDropdown a:hover { color: #E8E0D0; }
+
+    /* ===== HERO ===== */
+    .hero-section {
+      padding: 2.5rem 1rem 1rem;
+      text-align: center;
+    }
     .hero-section h1 {
-      color: #e8d9b0;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 2.8rem;
+      color: #E8E0D0;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.03em;
     }
     .hero-section p {
-      color: #b8a882;
+      font-size: 0.88rem;
+      color: #9a8e78;
+      font-weight: 300;
+      margin-bottom: 0;
     }
-    /* Cards grid background */
+    .main-logo {
+      max-width: 80px;
+      margin-bottom: 0.75rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== CARDS GRID ===== */
     .album {
-      background-color: #353530 !important;
+      background-color: #1C1408 !important;
+      padding: 1.5rem 0 3rem;
     }
-    /* Cards */
-    .card {
-      background-color: #2a2a26;
-      border: 1px solid #4a4a44;
-    }
-    .card-body {
-      background-color: #2a2a26;
-      padding: 0.6rem 0.75rem;
-    }
-    /* Opening line text on tile */
-    .card-opening-line {
-      font-size: 0.78rem;
-      color: #b8a882;
-      font-style: italic;
-      margin: 0 0 0.25rem 0;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-    /* Word count */
-    .card-body small {
-      color: #7a7060;
-    }
-    /* Entire tile clickable */
+
+    /* ===== TILE ===== */
     .story-card-tile {
       cursor: pointer;
       display: block;
       text-decoration: none;
+      background-color: #404038;
+      border-radius: 0;
+      border: none;
+      overflow: hidden;
       transition: opacity 0.2s ease;
     }
     .story-card-tile:hover {
-      opacity: 0.85;
+      opacity: 0.82;
     }
-    /* Footer */
+    /* Coloured SVG block */
+    .story-card-tile svg {
+      display: block;
+    }
+    /* Opening line text inside SVG handled inline */
+
+    /* ===== FOOTER ===== */
     footer {
-      background-color: #2a2a26 !important;
-      border-top: 1px solid #4a4a44 !important;
-      color: #7a7060 !important;
+      background-color: #1C1408;
+      border-top: 1px solid #2e2a1e;
+      color: #5a5040;
+      padding: 1.5rem 0;
     }
     footer a {
-      color: #b8a882 !important;
+      color: #9a8e78;
+      text-decoration: none;
     }
-    footer a:hover {
-      color: #e8d9b0 !important;
-    }
-    /* Modal */
+    footer a:hover { color: #E8E0D0; }
+
+    /* ===== MODAL ===== */
     .modal-content {
-      background-color: #2a2a26;
-      border: 1px solid #4a4a44;
+      background-color: #1e1a10;
+      border: 1px solid #2e2a1e;
+      border-radius: 0;
     }
     .modal-body {
-      color: #e8d9b0;
+      color: #E8E0D0;
+      line-height: 1.75;
     }
     .modal-body p {
-      line-height: 1.75;
       margin-bottom: 1rem;
     }
     .modal-footer {
-      border-top: 1px solid #4a4a44;
-      background-color: #2a2a26;
+      border-top: 1px solid #2e2a1e;
+      background-color: #1e1a10;
+    }
+    .modal-header {
+      border-bottom: none;
     }
   </style>
 </head>
 
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<header>
-  <div class="collapse" id="navbarHeader" style="background-color:#2a2a26;">
-    <div class="container">
-      <div class="row">
-
-        <div class="col-sm-4 py-4">
-          <h4 class="text-white">Index</h4>
-          <ul class="list-unstyled" id="nav-index"></ul>
-        </div>
-
-        <div class="col-sm-4 py-4">
-          <h4 class="text-white">Contact</h4>
-          <ul class="list-unstyled">
-            <li>
-              <a href="https://www.instagram.com/cupsofstory/" target="_blank" class="text-white nav-links">
-                <i class="fab fa-instagram"></i> Instagram
-              </a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
+<!-- ===== TOP NAV ===== -->
+<nav class="top-nav">
+  <div class="container" style="position:relative;">
+    <div class="index-toggle" id="indexToggle">Index ▾</div>
+    <a href="https://www.instagram.com/cupsofstory/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    <div id="indexDropdown">
+      <div id="nav-index-links"></div>
     </div>
   </div>
-
-  <div class="navbar shadow-sm" style="background-color:#353530;">
-    <div class="container">
-      <a href="#" class="navbar-brand d-flex align-items-center"><strong></strong></a>
-      <button class="navbar-toggler" type="button"
-        data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
-        style="border-color:#e8d9b0;">
-        <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
-      </button>
-    </div>
-  </div>
-</header>
+</nav>
 
 <!-- ===== HERO ===== -->
 <main>
-  <section class="py-5 text-center container hero-section">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <img class="main-logo" src="images/cosLogo.png" alt="Cups of Story logo">
-        <h1 class="fw-light" style="color:#e8d9b0;">Cups of Story</h1>
-        <p class="lead" style="color:#b8a882;">Left nameless in the world.</p>
-      </div>
+  <section class="hero-section">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <img class="main-logo" src="images/cosLogo.png" alt="Cups of Story logo">
+      <h1>Cups of Story</h1>
+      <p>Left nameless in the world.</p>
     </div>
   </section>
 
   <!-- ===== CARDS GRID ===== -->
-  <div class="album py-5" style="background-color:#353530;">
+  <div class="album">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="story-grid"></div>
     </div>
@@ -188,11 +216,11 @@
 <div id="modal-container"></div>
 
 <!-- ===== FOOTER ===== -->
-<footer class="py-4" style="background-color:#2a2a26; border-top:1px solid #4a4a44;">
+<footer>
   <div class="container text-center">
-    <p class="mb-1" style="color:#7a7060;">© Cups of Story</p>
+    <p class="mb-1" style="color:#5a5040; font-size:0.8rem;">© Cups of Story</p>
     <small>
-      <a href="https://www.instagram.com/cupsofstory/" target="_blank" style="color:#b8a882;">
+      <a href="https://www.instagram.com/cupsofstory/" target="_blank">
         <i class="fab fa-instagram"></i> Instagram
       </a>
     </small>
@@ -201,63 +229,79 @@
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
+  // Index dropdown toggle
+  document.getElementById('indexToggle').addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.getElementById('indexDropdown').classList.toggle('open');
+  });
+  document.addEventListener('click', function() {
+    document.getElementById('indexDropdown').classList.remove('open');
+  });
+
   async function loadStories() {
     const res = await fetch('stories.json');
     const stories = await res.json();
 
     const grid = document.getElementById('story-grid');
     const modalContainer = document.getElementById('modal-container');
-    const navIndex = document.getElementById('nav-index');
+    const navLinks = document.getElementById('nav-index-links');
 
     // Build nav index in groups of ~10
     const groupSize = 10;
-    const navRow = document.createElement('div');
-    navRow.className = 'row';
-
     for (let i = 0; i < stories.length; i += groupSize) {
       const first = stories[i].id;
       const last = stories[Math.min(i + groupSize - 1, stories.length - 1)].id;
-      const col = document.createElement('div');
-      col.className = 'col-6 mb-1';
-      col.innerHTML = `<li><a href="#cos-${first}" class="text-white nav-links"><i class="fas fa-coffee"></i> COS ${last} – ${first}</a></li>`;
-      navRow.appendChild(col);
+      const a = document.createElement('a');
+      a.href = `#cos-${first}`;
+      a.textContent = `COS ${last} – ${first}`;
+      a.addEventListener('click', () => document.getElementById('indexDropdown').classList.remove('open'));
+      navLinks.appendChild(a);
     }
-    navIndex.appendChild(navRow);
 
     // Build cards + modals
     stories.forEach((story, index) => {
       const cosId = `cos${story.id}`;
       const isGroupStart = index % groupSize === 0;
 
-      // Word count label
       const wordLabel = story.wordCount ? `${story.wordCount} words` : '';
 
-      // Opening line: first non-empty sentence or first 80 chars
-      const openingLine = story.text.split('\n')[0].substring(0, 90) + (story.text.length > 90 ? '…' : '');
+      // Opening line — first line, no ellipsis, capped at 72 chars cleanly
+      const rawLine = story.text.split('\n')[0];
+      const openingLine = rawLine.length > 72 ? rawLine.substring(0, 72) : rawLine;
 
-      // Card — entire tile is clickable, no button
+      // SVG text: wrap into two tspan lines if long
+      const words = openingLine.split(' ');
+      let line1 = '', line2 = '';
+      for (const w of words) {
+        if ((line1 + ' ' + w).trim().length <= 38) {
+          line1 = (line1 + ' ' + w).trim();
+        } else {
+          line2 = (line2 + ' ' + w).trim();
+        }
+      }
+      const svgText = line2
+        ? `<tspan x="50%" dy="-0.6em">${line1}</tspan><tspan x="50%" dy="1.4em">${line2}</tspan>`
+        : `<tspan x="50%" dy="0">${line1}</tspan>`;
+
+      // Card
       const cardCol = document.createElement('div');
       cardCol.className = 'col';
       if (isGroupStart) cardCol.id = `cos-${story.id}`;
 
       cardCol.innerHTML = `
-        <div class="card shadow-sm" style="background-color:#2a2a26; border:1px solid #4a4a44; overflow:hidden;">
-          <a class="story-card-tile" data-bs-toggle="modal" data-bs-target="#${cosId}">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="200"
-              role="img" aria-label="COS ${story.id}"
-              preserveAspectRatio="xMidYMid slice" focusable="false"
-              xmlns="http://www.w3.org/2000/svg">
-              <title>COS ${story.id}</title>
-              <rect width="100%" height="100%" fill="${story.backgroundColor}" />
-              <text x="50%" y="50%" fill="${story.textColor}" dy=".3em"
-                font-family="inherit" font-size="13" text-anchor="middle"
-                font-style="italic">
-                ${openingLine.length > 55 ? openingLine.substring(0, 55) + '…' : openingLine}
-              </text>
-            </svg>
-
-          </a>
-        </div>
+        <a class="story-card-tile" data-bs-toggle="modal" data-bs-target="#${cosId}">
+          <svg class="bd-placeholder-img" width="100%" height="210"
+            role="img" aria-label="COS ${story.id}"
+            preserveAspectRatio="xMidYMid slice" focusable="false"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="${story.backgroundColor}" />
+            <text x="50%" y="50%" fill="${story.textColor}"
+              font-family="Georgia, serif" font-size="13.5" text-anchor="middle"
+              font-weight="normal">
+              ${svgText}
+            </text>
+          </svg>
+        </a>
       `;
       grid.appendChild(cardCol);
 
@@ -267,34 +311,31 @@
         .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
         .join('');
 
-      // Next story logic: array is newest→oldest, reading goes oldest→newest (index decreases)
+      // Next story: array is newest→oldest, reading is oldest→newest
       const nextStory = stories[index - 1];
       const isLast = index === 0;
       const nextCosId = nextStory ? `cos${nextStory.id}` : null;
 
-      // Modal HTML
       const modalDiv = document.createElement('div');
       modalDiv.innerHTML = `
         <div class="modal fade" id="${cosId}" tabindex="-1"
           aria-labelledby="${cosId}Label" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content" style="background-color:#2a2a26; border:1px solid #4a4a44;">
-              <div class="modal-header" style="background-color:${story.backgroundColor}; border-bottom:none;">
-                <h5 class="modal-title" id="${cosId}Label"
-                  style="color:${story.textColor};">COS ${story.id}</h5>
+            <div class="modal-content">
+              <div class="modal-header" style="background-color:${story.backgroundColor};">
+                <h5 class="modal-title" style="color:${story.textColor}; font-family:'Cormorant Garamond',serif; font-weight:600;">COS ${story.id}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                   aria-label="Close" style="filter:${isDark(story.backgroundColor) ? 'invert(1)' : 'none'};"></button>
               </div>
-              <div class="modal-body" style="color:#e8d9b0;">${formattedText}</div>
-              <div class="modal-footer" style="background-color:#2a2a26; border-top:1px solid #4a4a44;">
-                <small style="color:#7a7060; margin-right:auto;">${wordLabel}</small>
+              <div class="modal-body">${formattedText}</div>
+              <div class="modal-footer">
+                <small style="color:#5a5040; margin-right:auto;">${wordLabel}</small>
                 ${isLast
                   ? `<button type="button" class="btn next-story-btn" data-bs-dismiss="modal"
-                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;">Close</button>`
+                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;border-radius:0;">Close</button>`
                   : `<button type="button" class="btn next-story-btn"
-                      data-bs-dismiss="modal"
-                      data-next="#${nextCosId}"
-                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;">Next Story →</button>`
+                      data-bs-dismiss="modal" data-next="#${nextCosId}"
+                      style="background-color:${story.backgroundColor};color:${story.textColor};border:none;border-radius:0;">Next Story →</button>`
                 }
               </div>
             </div>
@@ -305,7 +346,7 @@
     });
   }
 
-  // Handle "Next Story" button
+  // Next Story button handler
   document.getElementById('modal-container').addEventListener('click', function(e) {
     const btn = e.target.closest('.next-story-btn');
     if (!btn) return;
@@ -322,7 +363,6 @@
     });
   });
 
-  // Helper: is hex color dark?
   function isDark(hex) {
     const c = hex.replace('#', '');
     const r = parseInt(c.substring(0, 2), 16);
