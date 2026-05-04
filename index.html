@@ -336,10 +336,11 @@
             preserveAspectRatio="xMidYMid slice"
             xmlns="http://www.w3.org/2000/svg">
             <rect width="100%" height="100%" fill="${story.backgroundColor}" />
-            <!-- COS number — bottom-left, in viewBox coordinates so always inside tile -->
-            <text x="14" y="196"
+            <!-- COS number — bottom-right, text-anchor end so never clips -->
+            <text x="386" y="196"
               fill="${story.textColor}" fill-opacity="0.5"
               font-family="Georgia, serif" font-size="11"
+              text-anchor="end"
               letter-spacing="0.06em">COS ${story.id}</text>
             <!-- Opening line — centred, prominent -->
             <text x="50%" y="50%"
