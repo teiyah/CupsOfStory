@@ -28,16 +28,97 @@
   <link rel="stylesheet" href="css/style.css">
 
   <style>
-    .story-card-thumb {
+    body {
+      background-color: #353530;
+      color: #e8d9b0;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #353530 !important;
+      border-bottom: 1px solid #4a4a44;
+    }
+    .navbar-toggler {
+      border-color: #e8d9b0;
+    }
+    .navbar-toggler-icon {
+      filter: invert(1);
+    }
+    /* Collapsed nav panel */
+    #navbarHeader {
+      background-color: #2a2a26 !important;
+    }
+    /* Hero */
+    .hero-section h1 {
+      color: #e8d9b0;
+    }
+    .hero-section p {
+      color: #b8a882;
+    }
+    /* Cards grid background */
+    .album {
+      background-color: #353530 !important;
+    }
+    /* Cards */
+    .card {
+      background-color: #2a2a26;
+      border: 1px solid #4a4a44;
+    }
+    .card-body {
+      background-color: #2a2a26;
+      padding: 0.6rem 0.75rem;
+    }
+    /* Opening line text on tile */
+    .card-opening-line {
+      font-size: 0.78rem;
+      color: #b8a882;
+      font-style: italic;
+      margin: 0 0 0.25rem 0;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    /* Word count */
+    .card-body small {
+      color: #7a7060;
+    }
+    /* Entire tile clickable */
+    .story-card-tile {
       cursor: pointer;
+      display: block;
+      text-decoration: none;
       transition: opacity 0.2s ease;
     }
-    .story-card-thumb:hover {
-      opacity: 0.88;
+    .story-card-tile:hover {
+      opacity: 0.85;
+    }
+    /* Footer */
+    footer {
+      background-color: #2a2a26 !important;
+      border-top: 1px solid #4a4a44 !important;
+      color: #7a7060 !important;
+    }
+    footer a {
+      color: #b8a882 !important;
+    }
+    footer a:hover {
+      color: #e8d9b0 !important;
+    }
+    /* Modal */
+    .modal-content {
+      background-color: #2a2a26;
+      border: 1px solid #4a4a44;
+    }
+    .modal-body {
+      color: #e8d9b0;
     }
     .modal-body p {
       line-height: 1.75;
       margin-bottom: 1rem;
+    }
+    .modal-footer {
+      border-top: 1px solid #4a4a44;
+      background-color: #2a2a26;
     }
   </style>
 </head>
@@ -46,17 +127,15 @@
 
 <!-- ===== NAVBAR ===== -->
 <header>
-  <div class="collapse bg-dark" id="navbarHeader">
+  <div class="collapse" id="navbarHeader" style="background-color:#2a2a26;">
     <div class="container">
       <div class="row">
 
-        <!-- Index links (auto-generated) -->
         <div class="col-sm-4 py-4">
           <h4 class="text-white">Index</h4>
           <ul class="list-unstyled" id="nav-index"></ul>
         </div>
 
-        <!-- Contact -->
         <div class="col-sm-4 py-4">
           <h4 class="text-white">Contact</h4>
           <ul class="list-unstyled">
@@ -72,13 +151,14 @@
     </div>
   </div>
 
-  <div class="navbar navbar-light bg-light shadow-sm">
+  <div class="navbar shadow-sm" style="background-color:#353530;">
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center"><strong></strong></a>
       <button class="navbar-toggler" type="button"
         data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
+        style="border-color:#e8d9b0;">
+        <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
       </button>
     </div>
   </div>
@@ -86,18 +166,18 @@
 
 <!-- ===== HERO ===== -->
 <main>
-  <section class="py-5 text-center container">
+  <section class="py-5 text-center container hero-section">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <img class="main-logo" src="images/cosLogo.png" alt="Cups of Story logo">
-        <h1 class="fw-light">Cups of Story</h1>
-        <p class="lead text-muted">Left nameless in the world.</p>
+        <h1 class="fw-light" style="color:#e8d9b0;">Cups of Story</h1>
+        <p class="lead" style="color:#b8a882;">Left nameless in the world.</p>
       </div>
     </div>
   </section>
 
   <!-- ===== CARDS GRID ===== -->
-  <div class="album py-5 bg-light">
+  <div class="album py-5" style="background-color:#353530;">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="story-grid"></div>
     </div>
@@ -108,11 +188,11 @@
 <div id="modal-container"></div>
 
 <!-- ===== FOOTER ===== -->
-<footer class="text-muted py-4 bg-light border-top">
+<footer class="py-4" style="background-color:#2a2a26; border-top:1px solid #4a4a44;">
   <div class="container text-center">
-    <p class="mb-1">© Cups of Story</p>
+    <p class="mb-1" style="color:#7a7060;">© Cups of Story</p>
     <small>
-      <a href="https://www.instagram.com/cupsofstory/" target="_blank" class="text-muted">
+      <a href="https://www.instagram.com/cupsofstory/" target="_blank" style="color:#b8a882;">
         <i class="fab fa-instagram"></i> Instagram
       </a>
     </small>
@@ -149,54 +229,47 @@
       const cosId = `cos${story.id}`;
       const isGroupStart = index % groupSize === 0;
 
-      // Determine label text color based on darkness of background
-      const labelColor = story.textColor;
-
       // Word count label
       const wordLabel = story.wordCount ? `${story.wordCount} words` : '';
 
-      // Card HTML
+      // Opening line: first non-empty sentence or first 80 chars
+      const openingLine = story.text.split('\n')[0].substring(0, 90) + (story.text.length > 90 ? '…' : '');
+
+      // Card — entire tile is clickable, no button
       const cardCol = document.createElement('div');
       cardCol.className = 'col';
       if (isGroupStart) cardCol.id = `cos-${story.id}`;
 
       cardCol.innerHTML = `
-        <div class="card shadow-sm">
-          <a type="button" class="story-card-thumb" data-bs-toggle="modal" data-bs-target="#${cosId}">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+        <div class="card shadow-sm" style="background-color:#2a2a26; border:1px solid #4a4a44; overflow:hidden;">
+          <a class="story-card-tile" data-bs-toggle="modal" data-bs-target="#${cosId}">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="200"
               role="img" aria-label="COS ${story.id}"
               preserveAspectRatio="xMidYMid slice" focusable="false"
               xmlns="http://www.w3.org/2000/svg">
               <title>COS ${story.id}</title>
               <rect width="100%" height="100%" fill="${story.backgroundColor}" />
-              <text x="50%" y="50%" fill="${labelColor}" dy=".3em"
-                font-family="inherit" font-size="16" text-anchor="middle">
-                COS ${story.id}
+              <text x="50%" y="50%" fill="${story.textColor}" dy=".3em"
+                font-family="inherit" font-size="13" text-anchor="middle"
+                font-style="italic">
+                ${openingLine.length > 55 ? openingLine.substring(0, 55) + '…' : openingLine}
               </text>
             </svg>
+
           </a>
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary"
-                  data-bs-toggle="modal" data-bs-target="#${cosId}">View</button>
-              </div>
-              <small class="text-muted">${wordLabel}</small>
-            </div>
-          </div>
         </div>
       `;
       grid.appendChild(cardCol);
 
-      // Format story text: split on \n\n for paragraphs, \n for line breaks
+      // Format story text
       const formattedText = story.text
         .split('\n\n')
         .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
         .join('');
 
-      // Stories array is newest→oldest, so "next" for reading order is the previous index
+      // Next story logic: array is newest→oldest, reading goes oldest→newest (index decreases)
       const nextStory = stories[index - 1];
-      const isLast = index === 0; // index 0 is the newest story — it gets Close
+      const isLast = index === 0;
       const nextCosId = nextStory ? `cos${nextStory.id}` : null;
 
       // Modal HTML
@@ -205,16 +278,16 @@
         <div class="modal fade" id="${cosId}" tabindex="-1"
           aria-labelledby="${cosId}Label" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header" style="background-color:${story.backgroundColor}">
+            <div class="modal-content" style="background-color:#2a2a26; border:1px solid #4a4a44;">
+              <div class="modal-header" style="background-color:${story.backgroundColor}; border-bottom:none;">
                 <h5 class="modal-title" id="${cosId}Label"
-                  style="color:${story.textColor}">COS ${story.id}</h5>
+                  style="color:${story.textColor};">COS ${story.id}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                  aria-label="Close" style="filter:${isDark(story.backgroundColor) ? 'invert(1)' : 'none'}"></button>
+                  aria-label="Close" style="filter:${isDark(story.backgroundColor) ? 'invert(1)' : 'none'};"></button>
               </div>
-              <div class="modal-body">${formattedText}</div>
-              <div class="modal-footer">
-                <small class="text-muted me-auto">${wordLabel}</small>
+              <div class="modal-body" style="color:#e8d9b0;">${formattedText}</div>
+              <div class="modal-footer" style="background-color:#2a2a26; border-top:1px solid #4a4a44;">
+                <small style="color:#7a7060; margin-right:auto;">${wordLabel}</small>
                 ${isLast
                   ? `<button type="button" class="btn next-story-btn" data-bs-dismiss="modal"
                       style="background-color:${story.backgroundColor};color:${story.textColor};border:none;">Close</button>`
@@ -232,17 +305,16 @@
     });
   }
 
-  // Handle "Next Story" button — open next modal after current one fully closes
+  // Handle "Next Story" button
   document.getElementById('modal-container').addEventListener('click', function(e) {
     const btn = e.target.closest('.next-story-btn');
     if (!btn) return;
     const nextTarget = btn.getAttribute('data-next');
-    // Wait for current modal to finish closing, then open next
+    if (!nextTarget) return;
     document.addEventListener('hidden.bs.modal', function handler() {
       document.removeEventListener('hidden.bs.modal', handler);
       const nextModalEl = document.querySelector(nextTarget);
       if (nextModalEl) {
-        // Scroll next modal body to top
         const body = nextModalEl.querySelector('.modal-body');
         if (body) body.scrollTop = 0;
         new bootstrap.Modal(nextModalEl).show();
@@ -250,13 +322,12 @@
     });
   });
 
-  // Helper: is the hex color dark? (to decide btn-close filter)
+  // Helper: is hex color dark?
   function isDark(hex) {
     const c = hex.replace('#', '');
     const r = parseInt(c.substring(0, 2), 16);
     const g = parseInt(c.substring(2, 4), 16);
     const b = parseInt(c.substring(4, 6), 16);
-    // Perceived luminance
     return (r * 0.299 + g * 0.587 + b * 0.114) < 140;
   }
 
