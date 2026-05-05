@@ -375,69 +375,36 @@
       const cosId = `cos${story.id}`;
       const wordLabel = story.wordCount ? `${story.wordCount} words` : '';
 
-      // ── Opening line preview ──
-      // Hard limit: 45 chars, cut at nearest complete word,
-      // never end on a connective/trailing word.
-      const WEAK = new Set([
-        'that','the','a','an','no','in','of','when','and','but','or','so',
-        'for','to','my','your','his','her','its','our','their','with','at',
-        'by','from','as','if','is','was','it','he','she','we','they',
-        'on','up','not','be','into','over','this','these','those','then',
-        'than','which','who','how','what','do','did','had','have','has'
-      ]);
-      const rawLine = story.text.split('\n')[0];
-      let preview = rawLine;
-      if (preview.length > 45) {
-        let cut = 45;
-        while (cut > 0 && preview[cut] !== ' ') cut--;
-        preview = preview.substring(0, cut).trim();
-      }
-      // Strip trailing weak words — keep going until we hit a strong word
-      let words = preview.split(' ');
-      while (words.length > 1 && WEAK.has(words[words.length - 1].toLowerCase().replace(/[^a-z]/g, ''))) {
-        words.pop();
-      }
-      preview = words.join(' ');
+      // ── Tile preview text ──
+      // Read directly from story.preview — set this field in stories.json
+      // to control exactly what appears on each tile. No parsing, no limits.
+      const preview = story.preview || story.text.split('\n')[0];
 
       // ── SVG text layout ──
-      // Split preview into two balanced lines.
-      // Strategy: find the space closest to the midpoint of the string,
-      // biased slightly earlier so line1 is never longer than line2.
-      // Also ensure neither line ends on a weak word.
-      const previewWords = preview.split(' ');
-      let bestSplit = 1; // index: words before this go to line1
-      if (previewWords.length > 1) {
-        const mid = preview.length / 2;
-        let bestDist = Infinity;
-        let pos = 0;
-        for (let wi = 0; wi < previewWords.length - 1; wi++) {
-          pos += previewWords[wi].length + 1;
-          // Prefer splits where the boundary falls near or just before midpoint
-          const dist = Math.abs(pos - mid) + (pos > mid ? 2 : 0);
-          if (dist < bestDist) {
-            bestDist = dist;
-            bestSplit = wi + 1;
-          }
+      // Word-wrap preview into lines of ~35 chars, max 3 lines, vertically centred.
+      const svgMaxLineLen = 35;
+      const allWords = preview.split(' ');
+      const svgLines = [];
+      let currentLine = '';
+      for (const w of allWords) {
+        const candidate = currentLine ? currentLine + ' ' + w : w;
+        if (candidate.length > svgMaxLineLen && currentLine) {
+          svgLines.push(currentLine);
+          currentLine = w;
+        } else {
+          currentLine = candidate;
         }
       }
-      // Make sure line1 doesn't end on a weak word — push split forward if so
-      while (
-        bestSplit < previewWords.length - 1 &&
-        WEAK.has(previewWords[bestSplit - 1].toLowerCase().replace(/[^a-z]/g, ''))
-      ) { bestSplit++; }
-      // Make sure line2 doesn't end on a weak word — already handled above but double-check
-      let line2Words = previewWords.slice(bestSplit);
-      while (
-        line2Words.length > 1 &&
-        WEAK.has(line2Words[line2Words.length - 1].toLowerCase().replace(/[^a-z]/g, ''))
-      ) { line2Words.pop(); }
-
-      const svgLine1 = previewWords.slice(0, bestSplit).join(' ');
-      const svgLine2 = line2Words.join(' ');
-
-      const svgText = svgLine2
-        ? `<tspan x="50%" dy="-0.7em">${svgLine1}</tspan><tspan x="50%" dy="1.5em">${svgLine2}</tspan>`
-        : `<tspan x="50%" dy="0.3em">${svgLine1}</tspan>`;
+      if (currentLine) svgLines.push(currentLine);
+      const displayLines = svgLines.slice(0, 3);
+      const totalLines = displayLines.length;
+      const lineHeight = 1.4;
+      const startDy = -((totalLines - 1) * lineHeight / 2) + 'em';
+      const svgText = displayLines.map((line, i) =>
+        i === 0
+          ? `<tspan x="50%" dy="${startDy}">${line}</tspan>`
+          : `<tspan x="50%" dy="${lineHeight}em">${line}</tspan>`
+      ).join('');
 
       // ── Card ──
       const cardCol = document.createElement('div');
