@@ -400,13 +400,40 @@
       preview = words.join(' ');
 
       // ── SVG text layout ──
-      // Split preview at a word boundary near char 30 for two centred lines
-      let split = 30;
-      if (preview.length > 30) {
-        while (split > 0 && preview[split] !== ' ') split--;
+      // Split preview into two balanced lines.
+      // Strategy: find the space closest to the midpoint of the string,
+      // biased slightly earlier so line1 is never longer than line2.
+      // Also ensure neither line ends on a weak word.
+      const previewWords = preview.split(' ');
+      let bestSplit = 1; // index: words before this go to line1
+      if (previewWords.length > 1) {
+        const mid = preview.length / 2;
+        let bestDist = Infinity;
+        let pos = 0;
+        for (let wi = 0; wi < previewWords.length - 1; wi++) {
+          pos += previewWords[wi].length + 1;
+          // Prefer splits where the boundary falls near or just before midpoint
+          const dist = Math.abs(pos - mid) + (pos > mid ? 2 : 0);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestSplit = wi + 1;
+          }
+        }
       }
-      const svgLine1 = preview.substring(0, split || preview.length).trim();
-      const svgLine2 = split ? preview.substring(split).trim() : '';
+      // Make sure line1 doesn't end on a weak word — push split forward if so
+      while (
+        bestSplit < previewWords.length - 1 &&
+        WEAK.has(previewWords[bestSplit - 1].toLowerCase().replace(/[^a-z]/g, ''))
+      ) { bestSplit++; }
+      // Make sure line2 doesn't end on a weak word — already handled above but double-check
+      let line2Words = previewWords.slice(bestSplit);
+      while (
+        line2Words.length > 1 &&
+        WEAK.has(line2Words[line2Words.length - 1].toLowerCase().replace(/[^a-z]/g, ''))
+      ) { line2Words.pop(); }
+
+      const svgLine1 = previewWords.slice(0, bestSplit).join(' ');
+      const svgLine2 = line2Words.join(' ');
 
       const svgText = svgLine2
         ? `<tspan x="50%" dy="-0.7em">${svgLine1}</tspan><tspan x="50%" dy="1.5em">${svgLine2}</tspan>`
